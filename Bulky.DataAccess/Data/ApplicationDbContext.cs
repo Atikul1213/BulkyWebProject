@@ -1,0 +1,27 @@
+﻿using Bulky.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace BulkyWeb.DataAccess.Data
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext>options) : base(options)
+        {
+            
+        }
+
+        public DbSet<Category>Categories { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+           modelBuilder.Entity<Category>().HasData(
+                new Category { Id = 1, Name = "Atikul", DisplayOrder = "1" },
+                new Category { Id = 2, Name = "Sadikul", DisplayOrder = "2" },
+                new Category { Id = 3, Name = "Ismail", DisplayOrder = "3" },
+                new Category { Id = 4, Name = "Mominul", DisplayOrder = "4" },
+                new Category { Id = 5, Name = "Alamin", DisplayOrder = "5" }
+
+                );
+        }
+    }
+}
