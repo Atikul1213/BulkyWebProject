@@ -25,7 +25,7 @@ namespace BulkyWeb.Controllers
         #region Index Page
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.Product.Getall().ToList();
+            List<Product> objProductList = _unitOfWork.Product.Getall(includeProperties:"Category").ToList();
 
             return View(objProductList);
         }

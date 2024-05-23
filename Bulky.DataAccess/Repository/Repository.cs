@@ -18,6 +18,7 @@ namespace Bulky.DataAccess.Repository
             _db = db;
             this.dbSet = _db.Set<T>();
             // _db.Categories = dbSet
+            _db.Products.Include(u => u.Category).Include(u=>u.CategoryId);
         }
 
         public void Add(T entity)
@@ -25,18 +26,58 @@ namespace Bulky.DataAccess.Repository
             dbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter)
+        //public T Get(Expression<Func<T, bool>> filter)
+        //{
+        //    IQueryable<T> query = dbSet;
+        //    query = query.Where(filter);
+        //    return query.FirstOrDefault();
+        //}
+
+
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
             query = query.Where(filter);
+
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var obj in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(obj);
+                }
+            }
             return query.FirstOrDefault();
+
         }
 
-        public IEnumerable<T> Getall()
+
+
+
+
+
+        //public IEnumerable<T> Getall()
+        //{
+        //    IQueryable<T> query = dbSet;
+        //    return query.ToList();
+        //}
+
+        // Category , CategoryId
+        public IEnumerable<T> Getall(string? includeProperties=null)
         {
+
+
             IQueryable<T> query = dbSet;
+            if(!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach(var obj in includeProperties.Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(obj);
+                }
+            }
             return query.ToList();
         }
+
+
 
         public void Remove(T entity)
         {
@@ -44,8 +85,12 @@ namespace Bulky.DataAccess.Repository
         }
 
         public void RemoveRange(IEnumerable<T> entity)
-        {
-            dbSet.RemoveRange(entity);
+          {
+              dbSet.RemoveRange(entity);
+          }
+
+
+
+
         }
-    }
 }
