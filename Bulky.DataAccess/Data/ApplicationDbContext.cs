@@ -38,6 +38,7 @@ namespace BulkyWeb.DataAccess.Data
                     Author="Atikul",
                     Price100 = 80,
                     CategoryId = 1,
+                    ImageUrl=""
                 },
 
                 new Product
@@ -51,7 +52,9 @@ namespace BulkyWeb.DataAccess.Data
                     Price50 = 25,
                     Author="Sadikul",
                     Price100 = 20,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    ImageUrl=""
+
                 },
 
                 new Product
@@ -65,7 +68,8 @@ namespace BulkyWeb.DataAccess.Data
                     Price50 = 40,
                     Author="Ismail",
                     Price100 = 35,
-                    CategoryId = 3
+                    CategoryId = 3,
+                    ImageUrl=""
                 }
 
 
