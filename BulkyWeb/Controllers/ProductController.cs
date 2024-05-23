@@ -109,6 +109,14 @@ namespace BulkyWeb.Controllers
 
             //  Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u => u.Id==id);
             //  Category? categoryFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.catrepo.Getall().Select(u => new SelectListItem
+            {
+
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            ViewBag.CategoryList = CategoryList;
+
 
 
             if (ProductFromDb == null)
@@ -128,13 +136,32 @@ namespace BulkyWeb.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(Product obj)
+        public IActionResult Edit(Product obj, IFormFile? file)
         {
 
 
            
             if (ModelState.IsValid)
             {
+
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    obj.ImageUrl = @"\images\product\" + fileName;
+
+
+                }
+
+
+
                 _unitOfWork.Product.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Product update Successfully";
