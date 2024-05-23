@@ -1,6 +1,7 @@
 ﻿using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BulkyWeb.Controllers
 {
@@ -34,6 +35,15 @@ namespace BulkyWeb.Controllers
         /// Create option
         public IActionResult Create()
         {
+
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.catrepo.Getall().Select(u => new SelectListItem
+            {
+
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            ViewBag.CategoryList = CategoryList;
+
             return View();
         }
 
