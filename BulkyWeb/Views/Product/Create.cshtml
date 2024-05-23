@@ -1,4 +1,5 @@
 ﻿@model Product
+ 
 
 <div class="card shadow border-0 mt-4">
     <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
@@ -16,11 +17,11 @@
 
 
     <div class="card-body p-4">
-        <form method="post" class="row">
+        <form method="post" class="row" enctype="multipart/form-data">
             <div class="border p-3">
 
 
-                @* <div asp-validation-summary="ModelOnly"></div>*@
+                @* <div asp-validation-summary="ModelOnly"> </div>*@
 
                 <div class="form-floating py-2 col-12">
                     <input asp-for="Title" class="form-control border-0 shadow" />
@@ -80,6 +81,13 @@
                     </select>
                     <label asp-for="CategoryId" class="ms-2"></label>
                     <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+
+
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="ImageUrl" type="file" name="file" class="form-control border-0 shadow" />
+                    <label asp-for="ImageUrl" class="ms-2"></label>
                 </div>
 
 

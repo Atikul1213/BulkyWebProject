@@ -8,12 +8,15 @@ namespace BulkyWeb.Controllers
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         #region Ctor
 
-        public ProductController(IUnitOfWork unitOfWork)
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
+
         }
 
         #endregion
@@ -53,13 +56,30 @@ namespace BulkyWeb.Controllers
         #region Create Post
 
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult Create(Product obj, IFormFile? file)
         {
 
 
             
             if (ModelState.IsValid)
             {
+
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if(file!=null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+
+                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    obj.ImageUrl = @"\images\product\" + fileName;
+
+
+                }
+
                 _unitOfWork.Product.Add(obj);
                 _unitOfWork.Save();
 

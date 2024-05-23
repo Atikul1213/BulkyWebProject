@@ -1,4 +1,6 @@
-﻿@model List<Product>
+﻿@using Bulky.Models;
+@using BulkyWeb.DataAccess.Data;
+@model List<Product>
 
 
 @*
@@ -47,7 +49,8 @@
                     <th>Price</th>
                     <th>Price50</th>
                     <th>Price100</th>
-                    
+                    <th>CategoryName</th>
+                    <th>Images</th>
                     <th> </th>
                 </tr>
             </thead>
@@ -56,6 +59,8 @@
                 @foreach (var obj in Model)
                 {
                     <tr>
+
+
                         <td>@obj.Title</td>
                         <td>@obj.Description</td>
                         <td>@obj.ISBN</td>
@@ -64,10 +69,8 @@
                         <td>@obj.Price</td>
                         <td>@obj.Price50</td>
                         <td>@obj.Price100</td>
-
-
-
-
+                        
+                        <td>@obj.ImageUrl</td>
 
                         <td>
                             <div class="w-75 btn-group" rolw="group">
