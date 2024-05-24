@@ -186,7 +186,13 @@ namespace BulkyWeb.Controllers
             }
 
             Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.catrepo.Getall().Select(u => new SelectListItem
+            {
 
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            ViewBag.CategoryList = CategoryList;
             //  Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u => u.Id==id);
             //  Category? categoryFromDb2 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
 

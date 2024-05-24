@@ -50,6 +50,7 @@
                     <th>Price50</th>
                     <th>Price100</th>
                     <th>Category</th>
+                    <th>DisplayOrder</th>
                     <th>ImageURL</th>
                     <th> </th>
                 </tr>
@@ -70,8 +71,8 @@
                         <td>@obj.Price50</td>
                         <td>@obj.Price100</td>
                         <td>@obj.Category.Name</td>
+                        <td>@obj.Category.DisplayOrder</td>
                         <td>@obj.ImageUrl</td>
-
                         <td>
                             <div class="w-75 btn-group" rolw="group">
                                 <a asp-controller="Product" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
