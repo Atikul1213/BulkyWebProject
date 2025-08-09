@@ -3,6 +3,7 @@ using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
 using BulkyWeb.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BulkyWeb.Controllers
 {
@@ -24,6 +25,8 @@ namespace BulkyWeb.Controllers
         public IActionResult Index()
         {
             List<Category> objCategoryList = _unitOfWork.catrepo.Getall().ToList();
+           
+            
                
             return View(objCategoryList);
         }
@@ -36,6 +39,8 @@ namespace BulkyWeb.Controllers
         /// Create option
         public IActionResult Create()
         {
+            
+
             return View();
         }
 
